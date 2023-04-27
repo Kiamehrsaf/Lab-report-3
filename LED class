@@ -1,0 +1,52 @@
+# Lab-report-3
+main
+
+/////The goal of this code is to define a LED class with two parameters: the pin number and the delay time.
+////This allows for easy and flexible use of LEDs in different applications.
+#include "LED_State.h"
+LED_State pin(4,1000);///pin and delay in micro seconds
+
+void setup() {
+
+}
+
+void loop() {
+pin.Display();
+}
+
+
+cpp
+
+#include "LED_State.h"
+
+LED_State::LED_State(int Leda, int Leda_delay){
+  pinMode(Leda, OUTPUT);
+  _Leda = Leda;
+  _delay = Leda_delay;
+}
+void LED_State::Display(){
+  digitalWrite(_Leda,HIGH);/// led turns on
+  delay(_delay);//// delay applied
+  digitalWrite(_Leda,LOW);//// led turns off
+  delay(_delay);/// delay applied
+    }
+    
+  
+
+
+
+
+ header
+ 
+ #ifndef LED_State_H
+#define LED_State_H
+#include "arduino.h"
+
+class LED_State{
+  public:
+  LED_State(int Leda, int delay);
+  void Display();
+  int _Leda;
+  int _delay;
+};
+#endif
