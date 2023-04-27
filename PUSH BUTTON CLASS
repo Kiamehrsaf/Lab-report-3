@@ -1,0 +1,58 @@
+# Lab-report-3
+main 
+
+/////The goal of this code is to define a push-button class with one parameter: the pin number.
+////This allows for easy and flexible use of push-button in different applications.
+#include "PUB_State.h"
+PUB_State Btn(4);///push button pin
+
+void setup() {
+Serial.begin(9600);
+}
+
+void loop() {
+Btn.Display();
+}
+
+cpp
+
+#include "PUB_State.h"
+
+PUB_State::PUB_State(int button){
+  pinMode(button, INPUT_PULLUP);
+  _button = button;
+  _lastMillis = millis(); // initialize _lastMillis in constructor
+}
+
+void PUB_State::Display(){
+  if (!digitalRead(_button)) {
+    _lastMillis = millis(); // update _lastMillis when button is pressed
+  }
+
+  if (millis() - _lastMillis <= 100) {
+    Serial.print("Button Is Pressed: ");
+    Serial.println("TRUE");
+  }
+  else {
+    Serial.print("Button Is Pressed: ");
+    Serial.println("FALSE");
+  }
+}
+
+header
+
+#ifndef PUB_STATE_H
+#define PUB_STATE_H
+
+#include <Arduino.h>
+
+class PUB_State {
+  public:
+    PUB_State(int button);
+    void Display();
+  private:
+    int _button;
+    unsigned long _lastMillis;
+};
+
+#endif
